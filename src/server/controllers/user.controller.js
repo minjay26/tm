@@ -1,13 +1,27 @@
 /**
  * Created by minjay on 2017/7/27.
  */
-var User = require('/models/users');
+const User = require('../db').User;
 
-var register = function (req, res, next, id) {
-    User.findAll().then(function (user) {
-        console.log(user);
+const register = function (user) {
+    User.create(user).then(function () {
+        return;
     });
+}
+
+const modifyPassword = function (userId, oldPwd, newPwd) {
+    User.findById(userId).then(user => {
+        if (user.dataValues || user.dataValues.password != oldPwd) {
+            return false;
+        }
+        user.updateAttributes({
+            password: newPwd
+        }).success(function () {
+            return true;
+        })
+    });
+
 
 }
 
-module.exports = {register}
+module.exports = {register, modifyPassword}

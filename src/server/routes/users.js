@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var db = require('../db')
+const db = require('../db')
 
-var UserController = require('../controllers/user.controller')
+const UserController = require('../controllers/user.controller')
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -11,8 +11,23 @@ router.get('/', function (req, res, next) {
 });
 
 router.get("/register", function (req, res, next) {
-    UserController.register(req, res, next, 1);
     res.render("user/register")
+})
+
+router.post("/register", function (req, res, next) {
+    let content = req.body;
+    UserController.register(content);
+    res.sendStatus(200).send();
+})
+
+router.get("/modify_password", function (req, res, next) {
+
+})
+
+router.put("/modify_password", function (req, res, next) {
+    let content = req.body;
+    let success = UserController.modifyPassword(content.userId, content.oldPwd, content.newPwd);
+    res.send(success);
 })
 
 module.exports = router;
