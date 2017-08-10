@@ -13,4 +13,4 @@ build/
 bin/
 *.iml
 *.log
-node_modules/
+*/node_modules
