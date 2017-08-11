@@ -3,6 +3,20 @@
  */
 const User = require('../db').User;
 
+const login = function (username, password) {
+    User.findOne({
+        where: {
+            username: username,
+            password: password
+        }
+    }).then(user => {
+        if (user) {
+            return true;
+        }
+        return false;
+    })
+}
+
 const verifyUsername = function (username) {
     User.findAll({
         where: {
@@ -33,4 +47,4 @@ const modifyPassword = function (userId, oldPwd, newPwd) {
     });
 }
 
-module.exports = {verifyUsername, register, modifyPassword}
+module.exports = {login, verifyUsername, register, modifyPassword}

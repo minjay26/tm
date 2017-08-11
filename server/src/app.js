@@ -11,7 +11,7 @@ var app = express();
 
 // view engine setup
 app.engine('html', cons.swig)
-app.set('views', path.join(__dirname, '../front/views'));
+app.set('views', path.join(__dirname, '../../front/src/app/views'));
 app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
@@ -22,9 +22,20 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.use(function (req, res, next) {
+//     var url = req.originalUrl;
+//     if (url != "/login" && !req.session.user) {
+//         return res.redirect("/login");
+//     }
+//     next();
+// });
 
-var index = require('./routes/index.route');
-var users = require('./routes/users.route.');
+
+const index = require('./routes/index.route');
+const users = require('./routes/users.route.');
+const login = require('./routes/login.route');
+
+app.use('/login', login);
 app.use('/tm', index);
 app.use('/tm/users', users);
 
@@ -43,7 +54,7 @@ app.use(function (err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.send(res);
+    res.send(err.message);
 });
 app.listen(3000);
 module.exports = app;

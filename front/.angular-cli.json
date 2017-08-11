@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "tm"
+    "name": "demo-ng2"
   },
   "apps": [
     {
@@ -29,6 +29,11 @@
       }
     }
   ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
   "lint": [
     {
       "project": "src/tsconfig.app.json",
